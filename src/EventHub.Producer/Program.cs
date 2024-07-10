@@ -16,18 +16,16 @@ namespace EventHub
             var connectionString = "";
             var eventHubName = "tests-results";
 
-            // number of events to be sent to the event hub
             int numOfEvents = 3;
 
             EventHubProducerClient producerClient = new EventHubProducerClient(connectionString, eventHubName);
 
-            // Create a batch of events 
             using EventDataBatch eventBatch = await producerClient.CreateBatchAsync();
 
             for (int i = 1; i <= numOfEvents; i++)
             {
                 var eventData = new EventData(Encoding.UTF8.GetBytes($"Event {i}"));
-                eventData.Properties.Add("buildId", "1000");
+                eventData.Properties.Add("buildId", "3000");
                 eventData.Properties.Add("teamProjectId", "e58a3f8d-f5e0-4aca-b05c-475f664f76c0");
 
                 if (!eventBatch.TryAdd(eventData))
